@@ -632,24 +632,39 @@ export default function Home() {
     scrollToBottom()
   }, [messages])
 
-  const extractPolicyAndCompliance = (result: AgentResult) => {
+  const extractPolicyAndCompliance = (result: any) => {
+    console.log('Full agent result:', JSON.stringify(result, null, 2))
+
+    // Handle different possible response structures
+    let subAgentResults = result.sub_agent_results || result.subAgentResults || []
+
+    console.log('Sub-agent results:', JSON.stringify(subAgentResults, null, 2))
+
     // Extract policy document from Policy Drafting Agent
-    const policyAgent = result.sub_agent_results?.find(
-      agent => agent.agent_name?.toLowerCase().includes('policy drafting') ||
-               agent.agent_name?.toLowerCase().includes('drafting')
+    const policyAgent = subAgentResults.find(
+      (agent: any) => agent.agent_name?.toLowerCase().includes('policy drafting') ||
+               agent.agent_name?.toLowerCase().includes('drafting') ||
+               agent.name?.toLowerCase().includes('policy drafting')
     )
 
+    console.log('Policy agent found:', policyAgent)
+
     if (policyAgent?.output) {
+      console.log('Setting policy data:', policyAgent.output)
       setPolicyData(policyAgent.output as PolicyResult)
     }
 
     // Extract compliance data from Compliance Checker Agent
-    const complianceAgent = result.sub_agent_results?.find(
-      agent => agent.agent_name?.toLowerCase().includes('compliance') ||
-               agent.agent_name?.toLowerCase().includes('checker')
+    const complianceAgent = subAgentResults.find(
+      (agent: any) => agent.agent_name?.toLowerCase().includes('compliance') ||
+               agent.agent_name?.toLowerCase().includes('checker') ||
+               agent.name?.toLowerCase().includes('compliance')
     )
 
+    console.log('Compliance agent found:', complianceAgent)
+
     if (complianceAgent?.output) {
+      console.log('Setting compliance data:', complianceAgent.output)
       setComplianceData(complianceAgent.output as ComplianceResult)
     }
   }
@@ -671,17 +686,27 @@ export default function Home() {
     try {
       const result = await callAIAgent(input, AGENT_ID)
 
+      console.log('callAIAgent result:', JSON.stringify(result, null, 2))
+
       if (result.success && result.response) {
+        console.log('Response structure:', JSON.stringify(result.response, null, 2))
+
+        // Try multiple possible structures for the response
+        const agentResult = result.response.result || result.response.data || result.response
+
+        console.log('Agent result to extract:', agentResult)
+
         // Extract policy and compliance data from sub-agent results
-        if (result.response.result?.sub_agent_results) {
-          extractPolicyAndCompliance(result.response.result as AgentResult)
+        if (agentResult) {
+          extractPolicyAndCompliance(agentResult)
         }
 
         // Add assistant response
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: result.response.result?.summary ||
+          content: agentResult?.summary ||
+                   agentResult?.message ||
                    result.response.message ||
                    'Policy generation completed successfully.',
           timestamp: new Date()
@@ -697,6 +722,7 @@ export default function Home() {
         setMessages(prev => [...prev, errorMessage])
       }
     } catch (error) {
+      console.error('Error calling agent:', error)
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
