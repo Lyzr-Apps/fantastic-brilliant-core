@@ -1,0 +1,261 @@
+{
+  "agent_name": "Policy Drafting Agent",
+  "agent_id": "6960bd64566bcffb7aebb1f5",
+  "agent_purpose": "custom",
+  "description": "Creates comprehensive, professionally formatted HR policy documents with structured sections including purpose, scope, procedures, and enforcement",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "policy_title": "string",
+      "policy_document": {
+        "purpose": "string",
+        "scope": "string",
+        "definitions": [
+          {
+            "term": "string",
+            "definition": "string"
+          }
+        ],
+        "policy_statement": "string",
+        "procedures": [
+          {
+            "section_title": "string",
+            "content": "string",
+            "steps": [
+              "string"
+            ]
+          }
+        ],
+        "responsibilities": [
+          {
+            "role": "string",
+            "responsibilities": [
+              "string"
+            ]
+          }
+        ],
+        "enforcement": {
+          "violation_reporting": "string",
+          "investigation_process": "string",
+          "disciplinary_actions": [
+            "string"
+          ]
+        },
+        "effective_date": "string",
+        "review_cycle": "string"
+      },
+      "formatting_notes": [
+        "string"
+      ]
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "policy_title": "Remote Work Policy",
+      "policy_document": {
+        "purpose": "The purpose of this policy is to establish clear guidelines and procedures for employees who work remotely, ensuring productivity, security, and compliance with organizational standards.",
+        "scope": "This policy applies to all full-time and part-time employees who have been approved to telecommute, either on a regular or ad hoc basis, across all departments within the organization.",
+        "definitions": [
+          {
+            "term": "Remote Work",
+            "definition": "A work arrangement in which employees perform their job duties outside of the company\u2019s primary office location."
+          },
+          {
+            "term": "Telecommuting",
+            "definition": "A flexible work arrangement that allows employees to work from home or another approved location."
+          },
+          {
+            "term": "Home Office",
+            "definition": "A designated work area within an employee\u2019s residence used exclusively for the purpose of performing job tasks."
+          }
+        ],
+        "policy_statement": "The organization permits eligible employees to work remotely under specific conditions to promote work-life balance, reduce commute times, and maintain business continuity. All remote work arrangements must adhere to the guidelines and procedures outlined in this policy.",
+        "procedures": [
+          {
+            "section_title": "Approval Process",
+            "content": "All remote work arrangements require formal approval from an employee's direct supervisor and the HR department.",
+            "steps": [
+              "Employee submits a remote work request form to their supervisor.",
+              "Supervisor reviews the request and evaluates job suitability.",
+              "If approved, supervisor forwards the request to HR for final authorization.",
+              "HR notifies the employee of the decision in writing."
+            ]
+          },
+          {
+            "section_title": "Work Hours and Availability",
+            "content": "Remote employees must adhere to standard work hours unless alternative schedules have been approved.",
+            "steps": [
+              "Log in and be available during established core business hours.",
+              "Notify supervisor of any schedule deviations in advance."
+            ]
+          },
+          {
+            "section_title": "Equipment and Security",
+            "content": "Employees are expected to keep all company equipment secure and maintain data confidentiality.",
+            "steps": [
+              "Use secure Wi-Fi connections at all times.",
+              "Comply with organization's IT security policies.",
+              "Report any equipment loss or data breaches to IT immediately."
+            ]
+          }
+        ],
+        "responsibilities": [
+          {
+            "role": "Employee",
+            "responsibilities": [
+              "Adhere to the terms of the remote work agreement.",
+              "Maintain productivity and effective communication.",
+              "Comply with all cybersecurity guidelines."
+            ]
+          },
+          {
+            "role": "Supervisor",
+            "responsibilities": [
+              "Assess remote work suitability.",
+              "Monitor performance and provide support.",
+              "Ensure compliance with policy requirements."
+            ]
+          },
+          {
+            "role": "Human Resources",
+            "responsibilities": [
+              "Maintain documentation of authorized remote work arrangements.",
+              "Support and advise supervisors and employees regarding policy compliance.",
+              "Coordinate periodic reviews of remote work agreements."
+            ]
+          }
+        ],
+        "enforcement": {
+          "violation_reporting": "Employees must report policy violations or concerns to Human Resources via the designated reporting channels.",
+          "investigation_process": "HR will promptly review reported violations, conduct a fair investigation that may include interviews and evidence review, and make determinations in line with company procedures.",
+          "disciplinary_actions": [
+            "Verbal or written warnings",
+            "Revocation of remote work privileges",
+            "Suspension",
+            "Termination of employment"
+          ]
+        },
+        "effective_date": "2024-07-01",
+        "review_cycle": "Annually, or as required by changes in business needs or legislation."
+      },
+      "formatting_notes": [
+        "Section headings should be bolded.",
+        "Steps under procedures should be formatted as numbered lists.",
+        "Definitions list should appear at the start of the policy document."
+      ]
+    },
+    "metadata": {
+      "agent_name": "Policy Drafting Agent",
+      "timestamp": "2024-07-06T20:16:40Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-01-09T08:34:02.035601",
+  "test_message_used": "Provide a sample response",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "policy_title": "Remote Work Policy",
+      "policy_document": {
+        "purpose": "The purpose of this policy is to establish clear guidelines and procedures for employees who work remotely, ensuring productivity, security, and compliance with organizational standards.",
+        "scope": "This policy applies to all full-time and part-time employees who have been approved to telecommute, either on a regular or ad hoc basis, across all departments within the organization.",
+        "definitions": [
+          {
+            "term": "Remote Work",
+            "definition": "A work arrangement in which employees perform their job duties outside of the company\u2019s primary office location."
+          },
+          {
+            "term": "Telecommuting",
+            "definition": "A flexible work arrangement that allows employees to work from home or another approved location."
+          },
+          {
+            "term": "Home Office",
+            "definition": "A designated work area within an employee\u2019s residence used exclusively for the purpose of performing job tasks."
+          }
+        ],
+        "policy_statement": "The organization permits eligible employees to work remotely under specific conditions to promote work-life balance, reduce commute times, and maintain business continuity. All remote work arrangements must adhere to the guidelines and procedures outlined in this policy.",
+        "procedures": [
+          {
+            "section_title": "Approval Process",
+            "content": "All remote work arrangements require formal approval from an employee's direct supervisor and the HR department.",
+            "steps": [
+              "Employee submits a remote work request form to their supervisor.",
+              "Supervisor reviews the request and evaluates job suitability.",
+              "If approved, supervisor forwards the request to HR for final authorization.",
+              "HR notifies the employee of the decision in writing."
+            ]
+          },
+          {
+            "section_title": "Work Hours and Availability",
+            "content": "Remote employees must adhere to standard work hours unless alternative schedules have been approved.",
+            "steps": [
+              "Log in and be available during established core business hours.",
+              "Notify supervisor of any schedule deviations in advance."
+            ]
+          },
+          {
+            "section_title": "Equipment and Security",
+            "content": "Employees are expected to keep all company equipment secure and maintain data confidentiality.",
+            "steps": [
+              "Use secure Wi-Fi connections at all times.",
+              "Comply with organization's IT security policies.",
+              "Report any equipment loss or data breaches to IT immediately."
+            ]
+          }
+        ],
+        "responsibilities": [
+          {
+            "role": "Employee",
+            "responsibilities": [
+              "Adhere to the terms of the remote work agreement.",
+              "Maintain productivity and effective communication.",
+              "Comply with all cybersecurity guidelines."
+            ]
+          },
+          {
+            "role": "Supervisor",
+            "responsibilities": [
+              "Assess remote work suitability.",
+              "Monitor performance and provide support.",
+              "Ensure compliance with policy requirements."
+            ]
+          },
+          {
+            "role": "Human Resources",
+            "responsibilities": [
+              "Maintain documentation of authorized remote work arrangements.",
+              "Support and advise supervisors and employees regarding policy compliance.",
+              "Coordinate periodic reviews of remote work agreements."
+            ]
+          }
+        ],
+        "enforcement": {
+          "violation_reporting": "Employees must report policy violations or concerns to Human Resources via the designated reporting channels.",
+          "investigation_process": "HR will promptly review reported violations, conduct a fair investigation that may include interviews and evidence review, and make determinations in line with company procedures.",
+          "disciplinary_actions": [
+            "Verbal or written warnings",
+            "Revocation of remote work privileges",
+            "Suspension",
+            "Termination of employment"
+          ]
+        },
+        "effective_date": "2024-07-01",
+        "review_cycle": "Annually, or as required by changes in business needs or legislation."
+      },
+      "formatting_notes": [
+        "Section headings should be bolded.",
+        "Steps under procedures should be formatted as numbered lists.",
+        "Definitions list should appear at the start of the policy document."
+      ]
+    },
+    "metadata": {
+      "agent_name": "Policy Drafting Agent",
+      "timestamp": "2024-07-06T20:16:40Z"
+    }
+  }
+}

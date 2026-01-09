@@ -1,0 +1,76 @@
+{
+  "agent_name": "Requirements Analyst Agent",
+  "agent_id": "6960bd51566bcffb7aebb1f1",
+  "agent_purpose": "analyzer",
+  "description": "Extracts and structures policy requirements including scope, target audience, key provisions, exceptions, and enforcement mechanisms",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "scope": "string",
+      "target_audience": [
+        "any"
+      ],
+      "key_provisions": [
+        "any"
+      ],
+      "exceptions": [
+        "any"
+      ],
+      "enforcement_mechanisms": {
+        "monitoring": "string",
+        "violations_process": "string",
+        "consequences": [
+          "any"
+        ]
+      },
+      "additional_requirements": [
+        "any"
+      ]
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "scope": "Not specified",
+      "target_audience": [],
+      "key_provisions": [],
+      "exceptions": [],
+      "enforcement_mechanisms": {
+        "monitoring": "Not specified",
+        "violations_process": "Not specified",
+        "consequences": []
+      },
+      "additional_requirements": []
+    },
+    "metadata": {
+      "agent_name": "Requirements Analyst Agent",
+      "timestamp": "2024-06-10T19:45:29Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-01-09T08:33:27.858129",
+  "test_message_used": "Analyze this sample data for testing",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "scope": "Not specified",
+      "target_audience": [],
+      "key_provisions": [],
+      "exceptions": [],
+      "enforcement_mechanisms": {
+        "monitoring": "Not specified",
+        "violations_process": "Not specified",
+        "consequences": []
+      },
+      "additional_requirements": []
+    },
+    "metadata": {
+      "agent_name": "Requirements Analyst Agent",
+      "timestamp": "2024-06-10T19:45:29Z"
+    }
+  }
+}

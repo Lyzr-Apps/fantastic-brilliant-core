@@ -1,0 +1,230 @@
+{
+  "agent_name": "Compliance Checker Agent",
+  "agent_id": "6960bd88566bcffb7aebb1f6",
+  "agent_purpose": "custom",
+  "description": "Reviews drafted policies for compliance with labor laws, employment regulations, and industry standards, identifying gaps and providing remediation recommendations",
+  "response_schema": {
+    "status": "string",
+    "result": {
+      "compliance_status": "string",
+      "overall_score": "number",
+      "compliance_checks": [
+        {
+          "category": "string",
+          "status": "string",
+          "findings": "string",
+          "relevant_regulations": [
+            "string"
+          ]
+        }
+      ],
+      "identified_gaps": [
+        {
+          "gap_description": "string",
+          "severity": "string",
+          "affected_section": "string",
+          "legal_risk": "string"
+        }
+      ],
+      "remediation_recommendations": [
+        {
+          "issue": "string",
+          "recommendation": "string",
+          "priority": "string",
+          "implementation_steps": [
+            "string"
+          ]
+        }
+      ],
+      "best_practices_suggestions": [
+        "string"
+      ],
+      "final_assessment": "string"
+    },
+    "metadata": {
+      "agent_name": "string",
+      "timestamp": "string"
+    }
+  },
+  "example_response": {
+    "status": "success",
+    "result": {
+      "compliance_status": "needs_review",
+      "overall_score": 72,
+      "compliance_checks": [
+        {
+          "category": "Labor Laws",
+          "status": "warning",
+          "findings": "The draft policy does not explicitly outline overtime calculation and breaks, as required under FLSA regulations.",
+          "relevant_regulations": [
+            "FLSA (Fair Labor Standards Act)"
+          ]
+        },
+        {
+          "category": "Anti-Discrimination",
+          "status": "pass",
+          "findings": "Policy contains language prohibiting discrimination on the basis of protected categories such as race, gender, age, religion, and disability.",
+          "relevant_regulations": [
+            "Title VII of the Civil Rights Act",
+            "ADA",
+            "ADEA"
+          ]
+        },
+        {
+          "category": "FMLA",
+          "status": "fail",
+          "findings": "No mention of employee rights or procedures related to family and medical leave.",
+          "relevant_regulations": [
+            "FMLA (Family and Medical Leave Act)"
+          ]
+        },
+        {
+          "category": "ADA",
+          "status": "pass",
+          "findings": "Policy reasonably accommodates individuals with disabilities in the workplace.",
+          "relevant_regulations": [
+            "ADA (Americans with Disabilities Act)"
+          ]
+        }
+      ],
+      "identified_gaps": [
+        {
+          "gap_description": "Missing description of overtime calculation and required meal/rest breaks.",
+          "severity": "high",
+          "affected_section": "Work Hours & Compensation",
+          "legal_risk": "Non-compliance with FLSA could lead to wage claims or penalties."
+        },
+        {
+          "gap_description": "Absence of FMLA leave procedures, eligibility, and notice requirements.",
+          "severity": "critical",
+          "affected_section": "Leave of Absence",
+          "legal_risk": "Potential lawsuits or Department of Labor investigations."
+        }
+      ],
+      "remediation_recommendations": [
+        {
+          "issue": "Missing overtime and breaks policy.",
+          "recommendation": "Add clear language on overtime eligibility, calculation, and required rest/meal breaks in accordance with federal and state law.",
+          "priority": "high",
+          "implementation_steps": [
+            "Review applicable federal and state wage/hour regulations.",
+            "Draft policy section detailing overtime rules and break requirements.",
+            "Train supervisors on proper timekeeping procedures."
+          ]
+        },
+        {
+          "issue": "No FMLA section or procedures.",
+          "recommendation": "Incorporate a dedicated section outlining FMLA eligibility, rights, and employer responsibilities.",
+          "priority": "critical",
+          "implementation_steps": [
+            "Reference Department of Labor FMLA guidelines.",
+            "Draft FMLA policy including notice, eligibility, and reinstatement procedures.",
+            "Communicate new policy to all employees."
+          ]
+        }
+      ],
+      "best_practices_suggestions": [
+        "Regularly review and update policies to reflect changes in law.",
+        "Conduct annual training on anti-discrimination and leave policies.",
+        "Ensure all employee handbooks are accessible and up to date."
+      ],
+      "final_assessment": "The draft policy addresses major anti-discrimination and disability accommodation requirements but contains significant gaps regarding wage/hour compliance and family leave. Immediate attention to FMLA and FLSA provisions is necessary to mitigate legal risk and achieve full compliance."
+    },
+    "metadata": {
+      "agent_name": "Compliance Checker Agent",
+      "timestamp": "2024-06-13T12:00:00Z"
+    }
+  },
+  "is_actual_tested": true,
+  "test_timestamp": "2026-01-09T08:34:32.420852",
+  "test_message_used": "Provide a sample response",
+  "actual_test_response": {
+    "status": "success",
+    "result": {
+      "compliance_status": "needs_review",
+      "overall_score": 72,
+      "compliance_checks": [
+        {
+          "category": "Labor Laws",
+          "status": "warning",
+          "findings": "The draft policy does not explicitly outline overtime calculation and breaks, as required under FLSA regulations.",
+          "relevant_regulations": [
+            "FLSA (Fair Labor Standards Act)"
+          ]
+        },
+        {
+          "category": "Anti-Discrimination",
+          "status": "pass",
+          "findings": "Policy contains language prohibiting discrimination on the basis of protected categories such as race, gender, age, religion, and disability.",
+          "relevant_regulations": [
+            "Title VII of the Civil Rights Act",
+            "ADA",
+            "ADEA"
+          ]
+        },
+        {
+          "category": "FMLA",
+          "status": "fail",
+          "findings": "No mention of employee rights or procedures related to family and medical leave.",
+          "relevant_regulations": [
+            "FMLA (Family and Medical Leave Act)"
+          ]
+        },
+        {
+          "category": "ADA",
+          "status": "pass",
+          "findings": "Policy reasonably accommodates individuals with disabilities in the workplace.",
+          "relevant_regulations": [
+            "ADA (Americans with Disabilities Act)"
+          ]
+        }
+      ],
+      "identified_gaps": [
+        {
+          "gap_description": "Missing description of overtime calculation and required meal/rest breaks.",
+          "severity": "high",
+          "affected_section": "Work Hours & Compensation",
+          "legal_risk": "Non-compliance with FLSA could lead to wage claims or penalties."
+        },
+        {
+          "gap_description": "Absence of FMLA leave procedures, eligibility, and notice requirements.",
+          "severity": "critical",
+          "affected_section": "Leave of Absence",
+          "legal_risk": "Potential lawsuits or Department of Labor investigations."
+        }
+      ],
+      "remediation_recommendations": [
+        {
+          "issue": "Missing overtime and breaks policy.",
+          "recommendation": "Add clear language on overtime eligibility, calculation, and required rest/meal breaks in accordance with federal and state law.",
+          "priority": "high",
+          "implementation_steps": [
+            "Review applicable federal and state wage/hour regulations.",
+            "Draft policy section detailing overtime rules and break requirements.",
+            "Train supervisors on proper timekeeping procedures."
+          ]
+        },
+        {
+          "issue": "No FMLA section or procedures.",
+          "recommendation": "Incorporate a dedicated section outlining FMLA eligibility, rights, and employer responsibilities.",
+          "priority": "critical",
+          "implementation_steps": [
+            "Reference Department of Labor FMLA guidelines.",
+            "Draft FMLA policy including notice, eligibility, and reinstatement procedures.",
+            "Communicate new policy to all employees."
+          ]
+        }
+      ],
+      "best_practices_suggestions": [
+        "Regularly review and update policies to reflect changes in law.",
+        "Conduct annual training on anti-discrimination and leave policies.",
+        "Ensure all employee handbooks are accessible and up to date."
+      ],
+      "final_assessment": "The draft policy addresses major anti-discrimination and disability accommodation requirements but contains significant gaps regarding wage/hour compliance and family leave. Immediate attention to FMLA and FLSA provisions is necessary to mitigate legal risk and achieve full compliance."
+    },
+    "metadata": {
+      "agent_name": "Compliance Checker Agent",
+      "timestamp": "2024-06-13T12:00:00Z"
+    }
+  }
+}
