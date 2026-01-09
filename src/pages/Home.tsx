@@ -635,41 +635,90 @@ export default function Home() {
   const extractPolicyAndCompliance = (result: any) => {
     console.log('Full agent result:', JSON.stringify(result, null, 2))
 
-    // Handle different possible response structures
-    let subAgentResults = result.sub_agent_results || result.subAgentResults || []
-
-    console.log('Sub-agent results:', JSON.stringify(subAgentResults, null, 2))
-
-    // Extract policy document from Policy Drafting Agent
-    const policyAgent = subAgentResults.find(
-      (agent: any) => agent.agent_name?.toLowerCase().includes('policy drafting') ||
-               agent.agent_name?.toLowerCase().includes('drafting') ||
-               agent.name?.toLowerCase().includes('policy drafting')
-    )
-
-    console.log('Policy agent found:', policyAgent)
-
-    if (policyAgent?.output) {
-      // The output might be wrapped in a result object
-      const policyOutput = policyAgent.output.result || policyAgent.output
-      console.log('Setting policy data:', policyOutput)
-      setPolicyData(policyOutput as PolicyResult)
+    // Check if policy_document exists directly in result (new structure)
+    if (result.policy_document) {
+      console.log('Found policy_document in result')
+      const policyData: PolicyResult = {
+        policy_title: result.policy_document.policy_title,
+        policy_document: {
+          purpose: result.policy_document.purpose,
+          scope: result.policy_document.scope,
+          definitions: result.policy_document.definitions || [],
+          policy_statement: result.policy_document.policy_statement,
+          procedures: result.policy_document.procedures || [],
+          responsibilities: result.policy_document.responsibilities || [],
+          enforcement: result.policy_document.enforcement || {
+            violation_reporting: result.policy_document.enforcement?.violation_reporting || '',
+            investigation_process: result.policy_document.enforcement?.investigation_process || '',
+            disciplinary_actions: result.policy_document.enforcement?.disciplinary_actions || []
+          },
+          effective_date: result.policy_document.effective_date || new Date().toISOString().split('T')[0],
+          review_cycle: result.policy_document.review_cycle || 'Annually'
+        },
+        formatting_notes: result.policy_document.formatting_notes || []
+      }
+      console.log('Setting policy data:', policyData)
+      setPolicyData(policyData)
     }
 
-    // Extract compliance data from Compliance Checker Agent
-    const complianceAgent = subAgentResults.find(
-      (agent: any) => agent.agent_name?.toLowerCase().includes('compliance') ||
-               agent.agent_name?.toLowerCase().includes('checker') ||
-               agent.name?.toLowerCase().includes('compliance')
-    )
+    // Check if compliance_review exists directly in result (new structure)
+    if (result.compliance_review) {
+      console.log('Found compliance_review in result')
+      const complianceData: ComplianceResult = {
+        compliance_status: result.compliance_review.compliance_status,
+        overall_score: result.compliance_review.overall_score,
+        compliance_checks: result.compliance_review.compliance_checks || [],
+        identified_gaps: result.compliance_review.identified_gaps || result.compliance_review.critical_issues?.map((issue: string, idx: number) => ({
+          gap_description: issue,
+          severity: 'high',
+          affected_section: 'General',
+          legal_risk: 'Requires immediate attention'
+        })) || [],
+        remediation_recommendations: result.compliance_review.remediation_recommendations?.map((rec: any) => ({
+          issue: typeof rec === 'string' ? rec : rec.issue,
+          recommendation: typeof rec === 'string' ? rec : rec.recommendation,
+          priority: 'high',
+          implementation_steps: typeof rec === 'string' ? [rec] : rec.implementation_steps || []
+        })) || result.compliance_review.recommendations?.map((rec: string) => ({
+          issue: rec,
+          recommendation: rec,
+          priority: 'high',
+          implementation_steps: []
+        })) || [],
+        best_practices_suggestions: result.compliance_review.best_practices_suggestions || [],
+        final_assessment: result.compliance_review.final_assessment || 'Policy requires review and updates.'
+      }
+      console.log('Setting compliance data:', complianceData)
+      setComplianceData(complianceData)
+    }
 
-    console.log('Compliance agent found:', complianceAgent)
+    // Fallback: Try old structure with sub_agent_results
+    const subAgentResults = result.sub_agent_results || result.subAgentResults || []
 
-    if (complianceAgent?.output) {
-      // The output might be wrapped in a result object
-      const complianceOutput = complianceAgent.output.result || complianceAgent.output
-      console.log('Setting compliance data:', complianceOutput)
-      setComplianceData(complianceOutput as ComplianceResult)
+    if (subAgentResults.length > 0) {
+      console.log('Sub-agent results found:', subAgentResults.length)
+
+      const policyAgent = subAgentResults.find(
+        (agent: any) => agent.agent_name?.toLowerCase().includes('policy drafting') ||
+                 agent.agent_name?.toLowerCase().includes('drafting')
+      )
+
+      if (policyAgent?.output) {
+        const policyOutput = policyAgent.output.result || policyAgent.output
+        console.log('Setting policy data from sub-agent:', policyOutput)
+        setPolicyData(policyOutput as PolicyResult)
+      }
+
+      const complianceAgent = subAgentResults.find(
+        (agent: any) => agent.agent_name?.toLowerCase().includes('compliance') ||
+                 agent.agent_name?.toLowerCase().includes('checker')
+      )
+
+      if (complianceAgent?.output) {
+        const complianceOutput = complianceAgent.output.result || complianceAgent.output
+        console.log('Setting compliance data from sub-agent:', complianceOutput)
+        setComplianceData(complianceOutput as ComplianceResult)
+      }
     }
   }
 
@@ -695,24 +744,38 @@ export default function Home() {
       if (result.success && result.response) {
         console.log('Response structure:', JSON.stringify(result.response, null, 2))
 
-        // Try multiple possible structures for the response
-        const agentResult = result.response.result || result.response.data || result.response
+        // Handle response string that needs parsing
+        let responseData = result.response.response || result.response.result || result.response.data || result.response
+
+        // If responseData is a string, try to parse it as JSON
+        if (typeof responseData === 'string') {
+          try {
+            console.log('Parsing response string as JSON')
+            responseData = JSON.parse(responseData)
+          } catch (e) {
+            console.log('Response is not JSON, using as-is')
+          }
+        }
+
+        // Extract the result object if it exists
+        const agentResult = responseData.result || responseData
 
         console.log('Agent result to extract:', agentResult)
 
-        // Extract policy and compliance data from sub-agent results
+        // Extract policy and compliance data
         if (agentResult) {
           extractPolicyAndCompliance(agentResult)
         }
 
-        // Add assistant response
+        // Add assistant response with workflow summary if available
         const assistantMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: agentResult?.summary ||
+          content: agentResult?.workflow_summary ||
+                   agentResult?.summary ||
                    agentResult?.message ||
                    result.response.message ||
-                   'Policy generation completed successfully.',
+                   'Policy generation completed successfully. Review the policy document and compliance report in the right panel.',
           timestamp: new Date()
         }
         setMessages(prev => [...prev, assistantMessage])
