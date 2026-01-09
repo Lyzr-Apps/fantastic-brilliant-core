@@ -650,8 +650,10 @@ export default function Home() {
     console.log('Policy agent found:', policyAgent)
 
     if (policyAgent?.output) {
-      console.log('Setting policy data:', policyAgent.output)
-      setPolicyData(policyAgent.output as PolicyResult)
+      // The output might be wrapped in a result object
+      const policyOutput = policyAgent.output.result || policyAgent.output
+      console.log('Setting policy data:', policyOutput)
+      setPolicyData(policyOutput as PolicyResult)
     }
 
     // Extract compliance data from Compliance Checker Agent
@@ -664,8 +666,10 @@ export default function Home() {
     console.log('Compliance agent found:', complianceAgent)
 
     if (complianceAgent?.output) {
-      console.log('Setting compliance data:', complianceAgent.output)
-      setComplianceData(complianceAgent.output as ComplianceResult)
+      // The output might be wrapped in a result object
+      const complianceOutput = complianceAgent.output.result || complianceAgent.output
+      console.log('Setting compliance data:', complianceOutput)
+      setComplianceData(complianceOutput as ComplianceResult)
     }
   }
 
